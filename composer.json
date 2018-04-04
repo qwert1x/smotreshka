@@ -1,0 +1,19 @@
+{
+    "name": "qwert1x/smotreshka",
+    "description": "Smotreshka.ru API Package",
+    "require": {
+        "php": "^7.1",
+        "guzzlehttp/guzzle": "^6.3"
+    },
+    "authors": [
+        {
+            "name": "Alexey Makarov",
+            "email": "qwert1x@ya.ru"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "AlexeyMakarov\\Smotreshka\\": "src"
+        }
+    }
+}
