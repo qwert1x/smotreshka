@@ -2,10 +2,8 @@
 
 namespace AlexeyMakarov\Smotreshka;
 
-
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\BadResponseException;
-use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Psr7\Request;
 
 class SmotreshkaClient
@@ -24,22 +22,22 @@ class SmotreshkaClient
      * @param array $info
      * @return string
      */
-    public function accountCreate(string $email, string $username = '', string $password = '', array $purchases = [], array $info = []){
-
+    public function accountCreate(string $email, string $username = '', string $password = '', array $purchases = [], array $info = [])
+    {
         $data = [
             'email' => $email,
         ];
 
-        if($password !== '') {
+        if ($password !== '') {
             $data['password'] = $password;
         }
-        if($username !== '') {
+        if ($username !== '') {
             $data['username'] = $username;
         }
-        if(!empty($purchases)) {
+        if (!empty($purchases)) {
             $data['purchases'] = $purchases;
         }
-        if(!empty($info)) {
+        if (!empty($info)) {
             $data['info'] = $info;
         }
 
@@ -51,7 +49,8 @@ class SmotreshkaClient
      * @param string $id
      * @return string
      */
-    public function accountInfo(string $id){
+    public function accountInfo(string $id)
+    {
         return $this->makeRequest('GET', "accounts/{$id}");
     }
 
@@ -61,7 +60,8 @@ class SmotreshkaClient
      * @param array $info
      * @return string
      */
-    public function accountUpdate(string $id, array $info){
+    public function accountUpdate(string $id, array $info)
+    {
         return $this->makeRequest('POST', "accounts/{$id}/update", ['info' => $info]);
     }
 
@@ -71,7 +71,8 @@ class SmotreshkaClient
      * @param string $password
      * @return string
      */
-    public function accountResetPassword(string $id, string $password = ''){
+    public function accountResetPassword(string $id, string $password = '')
+    {
         $data = ($password !== '') ? ['password' => $password] : [];
         return $this->makeRequest('POST', "accounts/{$id}/reset-password", $data);
     }
@@ -130,13 +131,9 @@ class SmotreshkaClient
             $client = new Client([
                 'base_uri' => $this->base_uri
             ]);
-
             $request = new Request($method, $url, ['Content-Type' => 'application/json'], \json_encode($data));
-
             $response = $client->send($request, ['timeout' => 5]);
-
             return (string) $response->getBody()->getContents();
-
         } catch (BadResponseException $e) {
             $responseBodyAsString = $e->getResponse()->getBody()->getContents();
             \json_decode($responseBodyAsString);
