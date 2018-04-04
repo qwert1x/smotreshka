@@ -15,5 +15,6 @@
         "psr-4": {
             "AlexeyMakarov\\Smotreshka\\": "src"
         }
-    }
+    },
+    "minimum-stability" : "dev"
 }
